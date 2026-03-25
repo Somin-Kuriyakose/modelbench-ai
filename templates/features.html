@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — ModelBench AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/features.css') }}">
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-text">Model<em>Bench</em></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features" class="active">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app">Benchmark</a></li>
+  </ul>
+  <a href="/app" class="nav-cta">Launch App →</a>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<section class="feat-hero">
+  <div class="feat-hero-inner">
+    <div class="feat-hero-tag">Deep Dive</div>
+    <h1 class="feat-hero-title">
+      Everything ModelBench<br>
+      <span>can do for you</span>
+    </h1>
+    <p class="feat-hero-sub">
+      Six powerful features, each purpose-built to give you a complete picture
+      of your model's real-world performance — from first inference to production readiness.
+    </p>
+    <div class="feat-hero-count-row">
+      <div class="feat-count-item">
+        <div class="feat-count-num">18+</div>
+        <div class="feat-count-label">Metrics per Run</div>
+      </div>
+      <div class="feat-count-item">
+        <div class="feat-count-num">4</div>
+        <div class="feat-count-label">ML Frameworks</div>
+      </div>
+      <div class="feat-count-item">
+        <div class="feat-count-num">0</div>
+        <div class="feat-count-label">Data Sent Externally</div>
+      </div>
+      <div class="feat-count-item">
+        <div class="feat-count-num">∞</div>
+        <div class="feat-count-label">Benchmarks Stored</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Feature Index Nav ────────────────────────────────── -->
+<div class="feat-index">
+  <ul class="feat-index-list">
+    <li><a href="#latency" class="active">Latency</a></li>
+    <li><a href="#memory">Memory &amp; CPU</a></li>
+    <li><a href="#accuracy">Accuracy</a></li>
+    <li><a href="#sweep">Batch Sweep</a></li>
+    <li><a href="#introspect">Introspection</a></li>
+    <li><a href="#async">Async Jobs</a></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── 01 Latency ───────────────────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="feat-section" id="latency">
+  <div class="feat-glow feat-glow-green"></div>
+  <div class="feat-section-inner">
+
+    <div class="feat-copy">
+      <div class="feat-section-tag feat-reveal from-left">01 / Latency Profiling</div>
+      <h2 class="feat-section-title feat-reveal from-left feat-reveal-d1">
+        Every percentile.<br>Not just the average.
+      </h2>
+      <p class="feat-section-desc feat-reveal from-left feat-reveal-d2">
+        Averages lie. A model with 5ms average latency can still have 200ms p99 spikes
+        that destroy user experience in production. ModelBench captures the full picture —
+        min, avg, median, p90, p95, p99 and max — so you know exactly what your
+        tail latency looks like before you ship.
+      </p>
+      <ul class="feat-bullets feat-reveal from-left feat-reveal-d3">
+        <li>Configurable warmup runs to exclude cold-start bias from results</li>
+        <li>Per-iteration latency trace for spotting spikes and jitter</li>
+        <li>Histogram with 20 bins to visualise the full latency distribution</li>
+        <li>Standard deviation alongside percentiles for statistical confidence</li>
+      </ul>
+    </div>
+
+    <div class="feat-visual feat-reveal from-right">
+      <div class="feat-mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Latency Report — sklearn · 1000 iters</span>
+        </div>
+        <div class="mockup-body">
+          <div class="latency-bar-group">
+            <div class="lat-row"><span class="lat-label">Min</span><div class="lat-track"><div class="lat-fill green" style="width:0%"></div></div><span class="lat-val">0.09 ms</span></div>
+            <div class="lat-row"><span class="lat-label">Avg</span><div class="lat-track"><div class="lat-fill green" style="width:0%"></div></div><span class="lat-val">0.19 ms</span></div>
+            <div class="lat-row"><span class="lat-label">Med</span><div class="lat-track"><div class="lat-fill green" style="width:0%"></div></div><span class="lat-val">0.17 ms</span></div>
+            <div class="lat-row"><span class="lat-label">P90</span><div class="lat-track"><div class="lat-fill amber" style="width:0%"></div></div><span class="lat-val">0.29 ms</span></div>
+            <div class="lat-row"><span class="lat-label">P95</span><div class="lat-track"><div class="lat-fill amber" style="width:0%"></div></div><span class="lat-val">0.38 ms</span></div>
+            <div class="lat-row"><span class="lat-label">P99</span><div class="lat-track"><div class="lat-fill red" style="width:0%"></div></div><span class="lat-val">0.71 ms</span></div>
+            <div class="lat-row"><span class="lat-label">Max</span><div class="lat-track"><div class="lat-fill red" style="width:0%"></div></div><span class="lat-val">1.23 ms</span></div>
+          </div>
+          <div class="tile-row">
+            <div class="mini-tile"><div class="mini-tile-val">20,534</div><div class="mini-tile-label">Preds/sec</div></div>
+            <div class="mini-tile"><div class="mini-tile-val">0.08ms</div><div class="mini-tile-label">Std Dev</div></div>
+            <div class="mini-tile"><div class="mini-tile-val">10</div><div class="mini-tile-label">Warmup</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── 02 Memory & CPU ──────────────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="feat-section" id="memory">
+  <div class="feat-glow feat-glow-amber"></div>
+  <div class="feat-section-inner reverse">
+
+    <div class="feat-copy">
+      <div class="feat-section-tag feat-reveal from-right">02 / Memory &amp; CPU</div>
+      <h2 class="feat-section-title feat-reveal from-right feat-reveal-d1">
+        Profile peak heap,<br>RAM, and CPU together.
+      </h2>
+      <p class="feat-section-desc feat-reveal from-right feat-reveal-d2">
+        A model that looks fast in latency benchmarks can still silently exhaust your server's
+        memory. ModelBench tracks peak heap allocation using Python's <code style="font-family:var(--font-mono);font-size:.88em;background:var(--bg-raised);padding:1px 6px;border-radius:3px;color:var(--cyan);">tracemalloc</code>,
+        total process RAM via psutil, and CPU utilisation sampled per iteration — giving you
+        three separate views into resource consumption.
+      </p>
+      <ul class="feat-bullets feat-reveal from-right feat-reveal-d3">
+        <li>Peak heap memory isolated to inference code only, not the whole process</li>
+        <li>RAM RSS tracks total process memory for real deployment estimation</li>
+        <li>CPU average and peak percentage sampled across all iterations</li>
+        <li>All memory metrics shown alongside latency in a single result view</li>
+      </ul>
+    </div>
+
+    <div class="feat-visual feat-reveal from-left">
+      <div class="feat-mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Memory Profile — RandomForest · 500 iters</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mem-chart-area" id="mem-chart">
+            <div class="mem-bar" style="height:0%"></div>
+            <div class="mem-bar" style="height:0%"></div>
+            <div class="mem-bar" style="height:0%"></div>
+            <div class="mem-bar amber-bar" style="height:0%"></div>
+            <div class="mem-bar amber-bar" style="height:0%"></div>
+            <div class="mem-bar amber-bar" style="height:0%"></div>
+            <div class="mem-bar amber-bar" style="height:0%"></div>
+            <div class="mem-bar amber-bar" style="height:0%"></div>
+            <div class="mem-bar" style="height:0%"></div>
+            <div class="mem-bar" style="height:0%"></div>
+            <div class="mem-bar" style="height:0%"></div>
+            <div class="mem-bar" style="height:0%"></div>
+          </div>
+          <div class="mem-stats">
+            <div class="mem-stat"><div class="mem-stat-val">49 KB</div><div class="mem-stat-label">Mem Peak</div></div>
+            <div class="mem-stat"><div class="mem-stat-val">312 MB</div><div class="mem-stat-label">RAM RSS</div></div>
+            <div class="mem-stat" style="border-color:rgba(0,217,126,0.12);"><div class="mem-stat-val" style="color:var(--cyan);">77%</div><div class="mem-stat-label">CPU Avg</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── 03 Accuracy ──────────────────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="feat-section" id="accuracy">
+  <div class="feat-section-inner">
+
+    <div class="feat-copy">
+      <div class="feat-section-tag feat-reveal from-left">03 / Accuracy Metrics</div>
+      <h2 class="feat-section-title feat-reveal from-left feat-reveal-d1">
+        Speed means nothing<br>if predictions are wrong.
+      </h2>
+      <p class="feat-section-desc feat-reveal from-left feat-reveal-d2">
+        Upload a ground-truth labels file alongside your test data and ModelBench
+        automatically scores your model's predictions. No extra code required — it
+        detects classifier vs regressor and picks the right metrics automatically.
+      </p>
+      <ul class="feat-bullets feat-reveal from-left feat-reveal-d3">
+        <li>Classifiers: accuracy score + weighted F1 (or binary F1 for two-class models)</li>
+        <li>Regressors: RMSE, MAE, and R² coefficient of determination</li>
+        <li>Auto-detection of task type — no config flags to set</li>
+        <li>Labels file supports .csv and .npy format</li>
+      </ul>
+    </div>
+
+    <div class="feat-visual feat-reveal from-right">
+      <div class="feat-mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Accuracy — Classifier · 1000 samples</span>
+        </div>
+        <div class="mockup-body">
+          <div class="acc-donut-wrap">
+            <div class="acc-donut">
+              <svg width="90" height="90" viewBox="0 0 90 90">
+                <circle cx="45" cy="45" r="34" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="10"/>
+                <circle id="donut-circle" cx="45" cy="45" r="34" fill="none"
+                  stroke="#00d97e" stroke-width="10"
+                  stroke-linecap="round"
+                  style="stroke-dasharray:213.6;stroke-dashoffset:213.6;transition:stroke-dashoffset 1.4s cubic-bezier(0.22,1,0.36,1)"/>
+              </svg>
+              <div class="acc-donut-label">
+                94.3<div class="acc-donut-sub">accuracy %</div>
+              </div>
+            </div>
+            <div class="acc-metrics">
+              <div class="acc-metric-row">
+                <span class="acc-metric-name">F1 Score</span>
+                <span class="acc-metric-val">0.941</span>
+              </div>
+              <div class="acc-metric-row">
+                <span class="acc-metric-name">Precision</span>
+                <span class="acc-metric-val">0.938</span>
+              </div>
+              <div class="acc-metric-row">
+                <span class="acc-metric-name">Recall</span>
+                <span class="acc-metric-val">0.944</span>
+              </div>
+              <div class="acc-metric-row">
+                <span class="acc-metric-name">Samples</span>
+                <span class="acc-metric-val" style="color:var(--text-muted)">1,000</span>
+              </div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);padding:8px 10px;background:var(--bg-raised);border-radius:var(--radius);border:1px solid var(--border-faint);">
+            ✓ Task auto-detected: <span style="color:var(--cyan);">multiclass classifier</span> · 3 classes
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── 04 Batch Sweep ───────────────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="feat-section" id="sweep">
+  <div class="feat-glow feat-glow-green"></div>
+  <div class="feat-section-inner reverse">
+
+    <div class="feat-copy">
+      <div class="feat-section-tag feat-reveal from-right">04 / Batch Size Sweep</div>
+      <h2 class="feat-section-title feat-reveal from-right feat-reveal-d1">
+        Find your optimal<br>batch size automatically.
+      </h2>
+      <p class="feat-section-desc feat-reveal from-right feat-reveal-d2">
+        Different batch sizes can produce dramatically different throughput and latency profiles.
+        Rather than running benchmarks manually one by one, the Batch Sweep profiles your model
+        across up to 8 batch sizes in a single submission and highlights the winners.
+      </p>
+      <ul class="feat-bullets feat-reveal from-right feat-reveal-d3">
+        <li>Enter comma-separated batch sizes — e.g. <code style="font-family:var(--font-mono);font-size:.88em;background:var(--bg-raised);padding:1px 6px;border-radius:3px;color:var(--cyan);">1,8,32,128,256</code></li>
+        <li>Separately identifies best batch size for throughput vs best for latency</li>
+        <li>Results table with per-size latency, p99, throughput and memory peak</li>
+        <li>Two auto-rendered charts: throughput bars + latency line over batch size</li>
+      </ul>
+    </div>
+
+    <div class="feat-visual feat-reveal from-left">
+      <div class="feat-mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Batch Sweep — 5 sizes</span>
+        </div>
+        <div class="mockup-body">
+          <div class="sweep-chart">
+            <div class="sweep-col">
+              <div class="sweep-bar norm" id="sweep-bar-1" style="height:0%"></div>
+              <span class="sweep-col-label">bs=1</span>
+            </div>
+            <div class="sweep-col">
+              <div class="sweep-bar norm" id="sweep-bar-8" style="height:0%"></div>
+              <span class="sweep-col-label">bs=8</span>
+            </div>
+            <div class="sweep-col">
+              <div class="sweep-bar norm" id="sweep-bar-32" style="height:0%"></div>
+              <span class="sweep-col-label">bs=32</span>
+            </div>
+            <div class="sweep-col">
+              <div class="sweep-bar best" id="sweep-bar-128" style="height:0%"></div>
+              <span class="sweep-col-label" style="color:var(--cyan)">bs=128</span>
+            </div>
+            <div class="sweep-col">
+              <div class="sweep-bar norm" id="sweep-bar-256" style="height:0%"></div>
+              <span class="sweep-col-label">bs=256</span>
+            </div>
+          </div>
+          <div class="sweep-badges">
+            <div class="sweep-badge best">🚀 Best Throughput: bs=128</div>
+            <div class="sweep-badge best" style="background:var(--amber-dim);border-color:rgba(245,166,35,.2);color:var(--amber);">⚡ Best Latency: bs=1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── 05 Introspection ─────────────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="feat-section" id="introspect">
+  <div class="feat-section-inner">
+
+    <div class="feat-copy">
+      <div class="feat-section-tag feat-reveal from-left">05 / Model Introspection</div>
+      <h2 class="feat-section-title feat-reveal from-left feat-reveal-d1">
+        Understand your model<br>without reading its code.
+      </h2>
+      <p class="feat-section-desc feat-reveal from-left feat-reveal-d2">
+        Every benchmark automatically extracts metadata from your model file and surfaces it
+        alongside performance results. No manual inspection, no custom scripts — ModelBench
+        reads the model and tells you what's inside.
+      </p>
+      <ul class="feat-bullets feat-reveal from-left feat-reveal-d3">
+        <li>sklearn: class name, all hyperparameters, n_features, n_classes, is_classifier/regressor</li>
+        <li>Feature importance bar chart for tree-based models (top 10 features)</li>
+        <li>PyTorch: total parameter count · TensorFlow: layers + parameters</li>
+        <li>ONNX: full input/output spec with shapes and dtypes</li>
+      </ul>
+    </div>
+
+    <div class="feat-visual feat-reveal from-right">
+      <div class="feat-mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Introspection — RandomForestClassifier</span>
+        </div>
+        <div class="mockup-body">
+          <div class="intro-kv-list">
+            <div class="intro-kv-row"><span class="intro-kv-key">Class</span><span class="intro-kv-val accent">RandomForestClassifier</span></div>
+            <div class="intro-kv-row"><span class="intro-kv-key">n_estimators</span><span class="intro-kv-val">100</span></div>
+            <div class="intro-kv-row"><span class="intro-kv-key">n_features_in</span><span class="intro-kv-val">20</span></div>
+            <div class="intro-kv-row"><span class="intro-kv-key">n_classes</span><span class="intro-kv-val">3</span></div>
+            <div class="intro-kv-row"><span class="intro-kv-key">model_size_kb</span><span class="intro-kv-val">1,312 KB</span></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:8px;">Feature Importances (top 6)</div>
+          <div class="fi-mini">
+            <div class="fi-mini-row"><span class="fi-mini-label">feat 0</span><div class="fi-mini-track"><div class="fi-mini-fill" style="width:0%"></div></div></div>
+            <div class="fi-mini-row"><span class="fi-mini-label">feat 3</span><div class="fi-mini-track"><div class="fi-mini-fill" style="width:0%"></div></div></div>
+            <div class="fi-mini-row"><span class="fi-mini-label">feat 7</span><div class="fi-mini-track"><div class="fi-mini-fill" style="width:0%"></div></div></div>
+            <div class="fi-mini-row"><span class="fi-mini-label">feat 1</span><div class="fi-mini-track"><div class="fi-mini-fill" style="width:0%"></div></div></div>
+            <div class="fi-mini-row"><span class="fi-mini-label">feat 12</span><div class="fi-mini-track"><div class="fi-mini-fill" style="width:0%"></div></div></div>
+            <div class="fi-mini-row"><span class="fi-mini-label">feat 5</span><div class="fi-mini-track"><div class="fi-mini-fill" style="width:0%"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── 06 Async Jobs ────────────────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="feat-section" id="async">
+  <div class="feat-glow feat-glow-amber"></div>
+  <div class="feat-section-inner reverse">
+
+    <div class="feat-copy">
+      <div class="feat-section-tag feat-reveal from-right">06 / Async Jobs &amp; History</div>
+      <h2 class="feat-section-title feat-reveal from-right feat-reveal-d1">
+        Run long benchmarks<br>in the background.
+      </h2>
+      <p class="feat-section-desc feat-reveal from-right feat-reveal-d2">
+        Large models or high iteration counts can take minutes to benchmark. Toggle Async Mode
+        to dispatch the job to a background worker and get a live progress update while it
+        runs. Every result is stored automatically — tag, compare, and export at any time.
+      </p>
+      <ul class="feat-bullets feat-reveal from-right feat-reveal-d3">
+        <li>One-click async toggle — no config, no CLI, no extra setup</li>
+        <li>Live progress bar with percentage updated every 800ms</li>
+        <li>Full history with timestamp, batch size, and key metrics at a glance</li>
+        <li>Tag results with notes, compare any two or more runs side-by-side</li>
+        <li>Export individual results or bulk-export all history to CSV</li>
+      </ul>
+    </div>
+
+    <div class="feat-visual feat-reveal from-left">
+      <div class="feat-mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Async Jobs — Queue</span>
+        </div>
+        <div class="mockup-body">
+          <div class="async-job-list">
+            <div>
+              <div class="async-job">
+                <div class="async-status-dot done"></div>
+                <span class="async-job-name">logistic_regression.pkl · bs=1 · 1000it</span>
+                <span class="async-job-pct done">100%</span>
+              </div>
+              <div class="async-progress-track">
+                <div class="async-progress-fill" id="async-prog-1" style="width:0%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="async-job">
+                <div class="async-status-dot running"></div>
+                <span class="async-job-name">random_forest.pkl · bs=32 · 500it</span>
+                <span class="async-job-pct" style="color:var(--amber)">67%</span>
+              </div>
+              <div class="async-progress-track" style="background:rgba(245,166,35,0.08)">
+                <div class="async-progress-fill" id="async-prog-2" style="width:0%;background:linear-gradient(90deg,var(--amber),#ffc55a)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="async-job">
+                <div class="async-status-dot queued"></div>
+                <span class="async-job-name">gradient_boosting.pkl · bs=64 · 200it</span>
+                <span class="async-job-pct">Queued</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding:10px 12px;background:var(--bg-raised);border-radius:var(--radius);border:1px solid var(--border-faint);display:flex;justify-content:space-between;">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Results stored</span>
+            <span style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--cyan);">24</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────── -->
+<section class="feat-cta">
+  <div class="feat-cta-inner">
+    <h2 class="feat-cta-title feat-reveal">
+      See it in action —<br>benchmark your model now
+    </h2>
+    <p class="feat-cta-sub feat-reveal feat-reveal-d1">
+      Drop in a model file, upload test data, and get your first
+      full performance report in under 30 seconds.
+    </p>
+    <div class="feat-cta-btns feat-reveal feat-reveal-d2">
+      <a href="/app" class="btn-primary" style="font-size:13px;padding:14px 32px">▶ Open Benchmark App</a>
+      <a href="/faq" class="btn-ghost" style="font-size:13px;padding:13px 28px">Read the FAQ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-copy">© 2026 ModelBench AI · Open Source</div>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app">App</a></li>
+  </ul>
+</footer>
+
+<script src="{{ url_for('static', filename='js/features.js') }}"></script>
+</body>
+</html>

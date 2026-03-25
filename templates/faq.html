@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — ModelBench AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/faq.css') }}">
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-text">Model<em>Bench</em></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq" class="active">FAQ</a></li>
+    <li><a href="/app">Benchmark</a></li>
+  </ul>
+  <a href="/app" class="nav-cta">Launch App →</a>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<section class="faq-hero">
+  <div class="faq-hero-inner">
+    <div class="faq-hero-tag">Common Questions</div>
+    <h1 class="faq-hero-title">
+      Got questions?<br>
+      <span>We have answers.</span>
+    </h1>
+    <p class="faq-hero-sub">
+      Everything you need to know about using ModelBench — from installation
+      to reading your first benchmark result.
+    </p>
+    <div class="faq-search-wrap">
+      <span class="faq-search-icon">⌕</span>
+      <input type="text" id="faqSearch" class="faq-search"
+        placeholder="Search questions… e.g. p99, file formats, memory">
+      <span class="faq-search-count" id="searchCount"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Category Tabs ─────────────────────────────────────── -->
+<div class="faq-cats">
+  <button class="faq-cat-btn active" data-cat="all">All Questions</button>
+  <button class="faq-cat-btn" data-cat="start">Getting Started</button>
+  <button class="faq-cat-btn" data-cat="data">Data &amp; Files</button>
+  <button class="faq-cat-btn" data-cat="metrics">Understanding Metrics</button>
+  <button class="faq-cat-btn" data-cat="security">Privacy &amp; Security</button>
+  <button class="faq-cat-btn" data-cat="troubleshoot">Troubleshooting</button>
+</div>
+
+<!-- ── FAQ Body ──────────────────────────────────────────── -->
+<div class="faq-body">
+
+  <div id="faqEmpty" class="faq-empty">
+    <span class="faq-empty-icon">◇</span>
+    <div class="faq-empty-text">No questions match your search. Try different keywords.</div>
+  </div>
+
+  <!-- ═══ GETTING STARTED ════════════════════════════════ -->
+  <div class="faq-group faq-reveal" data-cat="start">
+    <div class="faq-group-header">
+      <div class="faq-group-icon green">🚀</div>
+      <div class="faq-group-title">Getting Started</div>
+      <span class="faq-group-count">5 questions</span>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">How do I run my first benchmark?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        It takes four steps. <strong>Upload your model file</strong> by dragging it into the Model File zone (supports .pkl, .pt, .pth, .h5, .onnx). <strong>Upload test data</strong> (.csv, .npy, or .npz). <strong>Set your parameters</strong> — batch size, number of iterations, and warmup runs. Then click <strong>Run Benchmark</strong>. Results appear in seconds including latency percentiles, throughput, and memory usage.
+        <div class="faq-callout">
+          Tip: start with 100 iterations and 10 warmup runs. Increase to 500+ iterations for more statistically reliable results.
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What do I need to install to run ModelBench?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        ModelBench requires Python 3.9 or higher. Install dependencies with:
+        <br><br>
+        <code>pip install -r requirements.txt</code>
+        <br><br>
+        Then start the server with <code>python app.py</code> and open <code>http://localhost:5000</code> in your browser. No Docker, no cloud account, no API key needed. The ML framework libraries (torch, tensorflow, onnxruntime) are optional — only install what you need for the models you're benchmarking.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What ML frameworks does ModelBench support?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        ModelBench supports four major frameworks, auto-detected from the file extension:
+        <div class="faq-tag-list">
+          <span class="faq-tag">scikit-learn (.pkl)</span>
+          <span class="faq-tag">PyTorch (.pt / .pth)</span>
+          <span class="faq-tag">TensorFlow (.h5)</span>
+          <span class="faq-tag">ONNX Runtime (.onnx)</span>
+        </div>
+        <br>You don't need to specify the framework — ModelBench reads the file extension and loads the model with the appropriate library automatically.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What are warmup runs and why do they matter?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Warmup runs are inference passes executed <em>before</em> the timed benchmark begins. They exist to eliminate cold-start bias — the first few inferences are often slower because of JIT compilation (PyTorch), lazy initialisation, or CPU cache warming.
+        <br><br>
+        Without warmup runs, your average and median latency figures will be inflated by these one-time startup costs, giving you a misleading picture of steady-state performance. <strong>We recommend at least 10 warmup runs</strong> for all models; increase to 50+ for large PyTorch or TensorFlow models.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">How many iterations should I run?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        It depends on what you care about. For quick checks, <strong>100 iterations</strong> is sufficient to see if a change made things faster or slower. For reliable p99 latency figures, use <strong>500–1000 iterations</strong> — a p99 from only 100 samples represents just the single worst run, which is not statistically meaningful.
+        <br><br>
+        For production readiness decisions, aim for <strong>1000+ iterations</strong>. Use Async Mode for large iteration counts so the benchmark runs in the background without blocking the UI.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ═══ DATA & FILES ═══════════════════════════════════ -->
+  <div class="faq-group faq-reveal faq-reveal-d1" data-cat="data">
+    <div class="faq-group-header">
+      <div class="faq-group-icon amber">📁</div>
+      <div class="faq-group-title">Data &amp; Files</div>
+      <span class="faq-group-count">5 questions</span>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What test data file formats are supported?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Three formats are supported for test data:
+        <div class="faq-tag-list">
+          <span class="faq-tag">.csv — comma-separated, first row may be a header</span>
+          <span class="faq-tag">.npy — NumPy binary array</span>
+          <span class="faq-tag">.npz — NumPy compressed archive (first array used)</span>
+        </div>
+        <br>All formats are loaded and converted to a NumPy array before inference. For .csv files, non-numeric columns (like string labels or IDs) are automatically dropped.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">How should I format my labels file for accuracy scoring?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        The labels file should contain one label per row, in the same order as your test data rows. Supported formats are <code>.csv</code> (single column, no header) and <code>.npy</code> (1D array).
+        <br><br>
+        For classifiers, labels should be integers or strings matching the model's trained classes. For regressors, labels should be floats. ModelBench will align label count to sample count automatically if there's a minor mismatch.
+        <div class="faq-callout faq-callout-amber">
+          Labels are completely optional — skip this upload if you only need latency and performance metrics.
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">Is there a maximum file size for uploads?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        The default upload limit is <strong>100 MB per file</strong> in development mode and <strong>50 MB</strong> in production. You can change this in <code>config.py</code> by editing <code>MAX_CONTENT_LENGTH</code>.
+        <br><br>
+        For very large models or datasets, we recommend loading the model server-side and using a smaller representative subset of your test data (1000–10,000 rows is typically sufficient for reliable latency benchmarking).
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What happens to my uploaded files after benchmarking?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Uploaded files are saved temporarily to the <code>/uploads</code> folder on your local machine for the duration of the benchmark, then the result JSON is saved to <code>/results</code>. <strong>Your model and data files are never sent anywhere</strong> — ModelBench has no outbound network calls and no telemetry of any kind.
+        <br><br>
+        If you want to clean up uploads manually, simply delete the contents of the <code>/uploads</code> directory. Result history (JSON files in <code>/results</code>) can be deleted from the History tab in the app.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">Can I benchmark a model that expects batched input?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Yes. Set the <strong>Batch Size</strong> parameter to match your model's expected input. ModelBench will slice your test data into batches of that size and pass each batch as a single inference call.
+        <br><br>
+        Use the <strong>Batch Size Sweep</strong> feature to automatically compare performance across multiple batch sizes and find the optimal setting for your deployment target.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ═══ UNDERSTANDING METRICS ══════════════════════════ -->
+  <div class="faq-group faq-reveal faq-reveal-d2" data-cat="metrics">
+    <div class="faq-group-header">
+      <div class="faq-group-icon purple">📊</div>
+      <div class="faq-group-title">Understanding Metrics</div>
+      <span class="faq-group-count">5 questions</span>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What is p99 latency and why does it matter?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        p99 (99th percentile) latency is the latency that <strong>99% of your inference requests complete within</strong>. Put differently, only 1 in every 100 requests is slower than your p99 value.
+        <br><br>
+        It matters because in production, the slowest requests are what users experience as "the app being slow." A model with 5ms average latency but 200ms p99 means 1 in 100 requests will feel painfully slow. <strong>Always check your p99 before deploying</strong> — the average alone can hide severe tail latency issues.
+        <div class="faq-callout">
+          Rule of thumb: if your p99 is more than 5–10× your median, you likely have intermittent GC pauses or resource contention worth investigating.
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What's the difference between throughput and latency?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <strong>Latency</strong> is how long a single inference call takes — measured in milliseconds. It's what matters for real-time applications where a user is waiting for a response.
+        <br><br>
+        <strong>Throughput</strong> is how many predictions your model can process per second — relevant for batch processing jobs, offline pipelines, or high-concurrency services.
+        <br><br>
+        They often trade off against each other. A large batch size increases throughput (more predictions per second) but also increases latency per call (you wait for the full batch to complete). The Batch Size Sweep helps you find the right balance for your specific use case.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">How is memory peak different from RAM RSS?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <strong>Memory Peak (KB)</strong> is the peak heap memory allocated <em>specifically by inference code</em>, measured using Python's <code>tracemalloc</code>. It isolates the memory cost of running your model from the rest of the process.
+        <br><br>
+        <strong>RAM RSS (MB)</strong> is the total <em>Resident Set Size</em> — the total physical RAM the entire Python process is occupying, measured via psutil. This includes the model weights, Python runtime, loaded libraries, and everything else.
+        <br><br>
+        Use Memory Peak to understand the marginal memory cost of inference. Use RAM RSS to estimate how much memory to allocate to a container or VM when deploying.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">My accuracy score is 1.0 — is that correct?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        An accuracy of 1.0 (100%) is valid if your labels file contains the <em>same data the model was trained on</em>. This is actually common when using the provided <code>test_data/</code> sample files, which were generated to match the example models.
+        <br><br>
+        For a realistic accuracy assessment, you should use <strong>held-out data that the model has never seen</strong>. Split your dataset before training, keep the test set separate, and upload that as your test data when benchmarking.
+        <div class="faq-callout faq-callout-amber">
+          If you're seeing 1.0 on real unseen data, double-check that your labels aren't accidentally in the same order as your predictions.
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">What does a negative R² score mean for my regression model?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        R² (coefficient of determination) measures how well your model explains variance in the target compared to a baseline that always predicts the mean. A score of <strong>1.0</strong> is perfect, <strong>0.0</strong> means the model is no better than guessing the mean, and <strong>negative values</strong> mean the model is actively <em>worse</em> than just predicting the mean.
+        <br><br>
+        A negative R² usually means one of: (1) your test data has a very different distribution from training data, (2) you're using the wrong labels file, or (3) the model wasn't trained to predict the target column you're evaluating against.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ═══ PRIVACY & SECURITY ═════════════════════════════ -->
+  <div class="faq-group faq-reveal" data-cat="security">
+    <div class="faq-group-header">
+      <div class="faq-group-icon green">🔒</div>
+      <div class="faq-group-title">Privacy &amp; Security</div>
+      <span class="faq-group-count">3 questions</span>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">Is my data safe? Does ModelBench send anything to the cloud?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <strong>Absolutely nothing leaves your machine.</strong> ModelBench is a fully local Flask application with no outbound network requests, no analytics, no telemetry, and no external APIs. Everything — model loading, inference, metric computation, and result storage — happens entirely on your hardware.
+        <div class="faq-callout">
+          You can verify this yourself: run ModelBench with your network disconnected. It works identically.
+        </div>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">Why does ModelBench warn me about .pkl files?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Python's <code>pickle</code> format can execute arbitrary code when a file is loaded. This means a maliciously crafted .pkl file can run any command on your machine the moment it's deserialized — there is no safe way to "preview" a pickle without executing it.
+        <br><br>
+        <strong>ModelBench shows this warning not to block you, but to inform you.</strong> If the .pkl file came from your own training pipeline or a trusted source, it's safe to proceed. Never benchmark a .pkl file you received from an untrusted source or downloaded from an unknown location.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">How are benchmark results stored and for how long?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Results are stored as plain JSON files in the <code>/results</code> directory on your local machine. There is no database. Each result includes the metrics, configuration, model type, and timestamp.
+        <br><br>
+        By default, results older than <strong>30 days</strong> are automatically cleaned up. You can change this with the <code>RESULT_RETENTION_DAYS</code> setting in <code>config.py</code>, or set it to <code>None</code> to disable auto-cleanup entirely. You can also delete individual results at any time from the History tab.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ═══ TROUBLESHOOTING ════════════════════════════════ -->
+  <div class="faq-group faq-reveal faq-reveal-d1" data-cat="troubleshoot">
+    <div class="faq-group-header">
+      <div class="faq-group-icon red">🔧</div>
+      <div class="faq-group-title">Troubleshooting</div>
+      <span class="faq-group-count">4 questions</span>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">I get "Framework not available" when uploading my model. What do I do?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        This error means the required library for that model type isn't installed in your Python environment. The fix is straightforward:
+        <br><br>
+        • PyTorch (.pt / .pth): <code>pip install torch</code><br>
+        • TensorFlow (.h5): <code>pip install tensorflow</code><br>
+        • ONNX (.onnx): <code>pip install onnxruntime</code><br>
+        <br>
+        You can check which frameworks are currently available from the <strong>System</strong> tab in the app. Restart ModelBench after installing any new library.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">The benchmark completes but accuracy metrics aren't showing.</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Accuracy metrics only appear when you upload a <strong>labels file</strong> in the third upload zone. If you didn't include a labels file, only latency and performance metrics are computed.
+        <br><br>
+        If you did upload a labels file and still see no accuracy metrics, check: (1) the labels file is a valid .csv or .npy, (2) the number of labels roughly matches the number of test samples, and (3) label values are numeric (not string) for classification. Any error during accuracy computation is shown in the results under an <em>accuracy error</em> field.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">I'm getting a 429 Too Many Requests error.</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        ModelBench has a built-in rate limiter to prevent runaway benchmark loops from overloading the server. By default it allows <strong>10 benchmark requests per minute</strong> in development mode.
+        <br><br>
+        Simply wait 60 seconds and try again. If you're running automated scripts or CI pipelines that need a higher limit, update <code>RATE_LIMIT_MAX_CALLS</code> and <code>RATE_LIMIT_WINDOW_SECONDS</code> in <code>config.py</code>.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span class="faq-q-text">Introspection shows an error for my PyTorch model. Is that a problem?</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Introspection errors on PyTorch models are common and <strong>do not affect benchmark results</strong>. Latency, memory, and throughput are measured regardless of whether introspection succeeds.
+        <br><br>
+        Introspection can fail if the model was saved with <code>torch.save(model.state_dict())</code> (weights only, no architecture) rather than <code>torch.save(model)</code> (full model). In this case, ModelBench can benchmark inference but cannot extract parameter counts or layer info because the architecture object isn't present in the file.
+      </div></div>
+    </div>
+  </div>
+
+</div><!-- /faq-body -->
+
+<!-- ── Still need help ───────────────────────────────────── -->
+<div class="faq-help-bar">
+  <div class="faq-help-inner faq-reveal">
+    <div class="faq-help-left">
+      <div class="faq-help-title">Still have a question?</div>
+      <div class="faq-help-sub">Check the source code or open an issue — ModelBench is fully open source.</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="/app" class="btn-primary" style="font-size:12px;padding:11px 24px">▶ Try It Now</a>
+      <a href="/features" class="btn-ghost" style="font-size:12px;padding:10px 20px">See All Features</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-copy">© 2026 ModelBench AI · Open Source</div>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app">App</a></li>
+  </ul>
+</footer>
+
+<script src="{{ url_for('static', filename='js/faq.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ModelBench AI — ML Model Benchmarking Platform</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">    <div class="nav-logo-text">Model<em>Bench</em></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app">Benchmark</a></li>
+  </ul>
+  <a href="/app" class="nav-cta">Launch App →</a>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────── -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-glow-left"></div>
+  <div class="hero-glow-right"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Now with async benchmarking &amp; memory profiling
+    </div>
+
+    <h1 class="hero-title">
+      The Benchmark
+      <span class="line-2">Suite for ML</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Profile inference latency, throughput, memory usage and accuracy
+      across any model framework — sklearn, PyTorch, TensorFlow, or ONNX —
+      in seconds.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/app" class="btn-primary">
+        <span>▶</span> Start Benchmarking
+      </a>
+      <a href="/about" class="btn-ghost">
+        Learn More
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ── Marquee ──────────────────────────────────────────── -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Latency Profiling <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Throughput Analysis <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Memory Tracking <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">CPU Profiling <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Accuracy Metrics <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Model Introspection <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Batch Sweep <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Async Jobs <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Result Comparison <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">CSV Export <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">p99 / p95 / p90 Percentiles <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">Feature Importances <span class="marquee-sep">·</span></span>
+    <!-- duplicated by JS for seamless scroll -->
+  </div>
+</div>
+
+<!-- ── Stats ────────────────────────────────────────────── -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-number">
+        <span data-count="0.19" class="stat-num">0.19</span>
+        <span class="unit">ms</span>
+      </div>
+      <div class="stat-label">Avg. Inference Time</div>
+      <div class="stat-desc">Measured on logistic regression, 1000 samples</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number">
+        <span data-count="4" class="stat-num">4</span>
+      </div>
+      <div class="stat-label">Frameworks Supported</div>
+      <div class="stat-desc">sklearn · PyTorch · TensorFlow · ONNX</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number">
+        <span data-count="18" class="stat-num">18</span>
+        <span class="unit">+</span>
+      </div>
+      <div class="stat-label">Metrics per Benchmark</div>
+      <div class="stat-desc">Latency, memory, CPU, accuracy and more</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number">
+        <span data-count="100" class="stat-num">100</span>
+        <span class="unit">%</span>
+      </div>
+      <div class="stat-label">Open Source</div>
+      <div class="stat-desc">Self-hosted, no data leaves your machine</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ─────────────────────────────────────────── -->
+<section class="features-section">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">Features</div>
+      <h2 class="display-md">Everything you need to<br>understand your model's performance</h2>
+    </div>
+    <a href="/app" class="btn-ghost reveal reveal-delay-2">View All Features →</a>
+  </div>
+
+  <div class="features-grid">
+
+    <div class="feature-card reveal">
+      <div class="feature-card-inner">
+        <div class="feature-icon cyan">⚡</div>
+        <h3 class="feature-title">Latency Profiling</h3>
+        <p class="feature-desc">
+          Capture avg, median, p50/p90/p95/p99, min and max latency
+          across hundreds of inference runs with warmup support.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal reveal-delay-1">
+      <div class="feature-card-inner">
+        <div class="feature-icon amber">🧠</div>
+        <h3 class="feature-title">Memory &amp; CPU Profiling</h3>
+        <p class="feature-desc">
+          Track peak heap allocation via tracemalloc, RAM RSS via psutil,
+          and CPU utilization captured per inference iteration.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal reveal-delay-2">
+      <div class="feature-card-inner">
+        <div class="feature-icon green">🎯</div>
+        <h3 class="feature-title">Accuracy Metrics</h3>
+        <p class="feature-desc">
+          Upload ground-truth labels alongside your data to compute
+          accuracy + F1 for classifiers, or RMSE/MAE/R² for regressors.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feature-card-inner">
+        <div class="feature-icon purple">🔬</div>
+        <h3 class="feature-title">Model Introspection</h3>
+        <p class="feature-desc">
+          Automatically surface class name, parameter count, feature importances,
+          n_classes, and model size — no manual inspection needed.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal reveal-delay-1">
+      <div class="feature-card-inner">
+        <div class="feature-icon cyan">📊</div>
+        <h3 class="feature-title">Batch Size Sweep</h3>
+        <p class="feature-desc">
+          Profile your model across multiple batch sizes in a single run.
+          Identify the optimal batch size for latency vs throughput.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal reveal-delay-2">
+      <div class="feature-card-inner">
+        <div class="feature-icon amber">⚙️</div>
+        <h3 class="feature-title">Async Jobs + History</h3>
+        <p class="feature-desc">
+          Submit long benchmarks as background jobs. Tag, annotate, compare
+          and export any result — individually or in bulk.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── How it works ─────────────────────────────────────── -->
+<section class="howitworks-section">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;margin-bottom:0">
+    <div class="section-eyebrow" style="justify-content:center;margin-bottom:16px" >How it works</div>
+    <h2 class="display-md reveal" style="margin-bottom:0">Four steps to insight</h2>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-item reveal">
+      <div class="step-number">01</div>
+      <h3 class="step-title">Upload Model</h3>
+      <p class="step-desc">Drop in your .pkl, .pt, .h5 or .onnx model file. Pickle security warnings shown automatically.</p>
+    </div>
+    <div class="step-item reveal reveal-delay-1">
+      <div class="step-number">02</div>
+      <h3 class="step-title">Upload Data</h3>
+      <p class="step-desc">Provide test data as .csv, .npy, or .npz. Optionally upload a labels file for accuracy scoring.</p>
+    </div>
+    <div class="step-item reveal reveal-delay-2">
+      <div class="step-number">03</div>
+      <h3 class="step-title">Configure &amp; Run</h3>
+      <p class="step-desc">Set batch size, iterations, warmup runs. Run synchronously or dispatch as an async background job.</p>
+    </div>
+    <div class="step-item reveal reveal-delay-3">
+      <div class="step-number">04</div>
+      <h3 class="step-title">Analyse &amp; Export</h3>
+      <p class="step-desc">Explore interactive charts, compare runs side-by-side, tag results, and export to CSV.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Frameworks ────────────────────────────────────────── -->
+<section class="frameworks-section">
+  <div class="section-eyebrow" style="justify-content:center;margin-bottom:16px">Supported Frameworks</div>
+  <h2 class="display-md reveal" style="margin-bottom:0">Works with every major ML stack</h2>
+  <div class="frameworks-row reveal">
+    <div class="framework-pill"><span class="dot" style="background:#f7931a"></span>scikit-learn</div>
+    <div class="framework-pill"><span class="dot" style="background:#ee4c2c"></span>PyTorch</div>
+    <div class="framework-pill"><span class="dot" style="background:#ff6f00"></span>TensorFlow</div>
+    <div class="framework-pill"><span class="dot" style="background:#00d4ff"></span>ONNX Runtime</div>
+    <div class="framework-pill"><span class="dot" style="background:#3776ab"></span>Python 3.9+</div>
+    <div class="framework-pill"><span class="dot" style="background:#013243"></span>NumPy / Pandas</div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title reveal">
+      Ready to profile<br>
+      <span class="grad-text">your model?</span>
+    </h2>
+    <p class="cta-sub reveal reveal-delay-1">
+      No sign-up. No cloud. Everything runs locally on your machine.
+      Your models and data never leave your environment.
+    </p>
+    <div class="cta-actions reveal reveal-delay-2">
+      <a href="/app" class="btn-primary" style="font-size:14px;padding:16px 36px">▶ Open Benchmark App</a>
+      <a href="/about" class="btn-ghost" style="font-size:14px;padding:15px 32px">About the Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-copy">© 2026 ModelBench AI · Built for ML engineers</div>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/app">App</a></li>
+    <li><a href="/health">Health</a></li>
+  </ul>
+</footer>
+
+<script src="{{ url_for('static', filename='js/landing.js') }}"></script>
+</body>
+</html>

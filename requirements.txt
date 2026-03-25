@@ -1,0 +1,19 @@
+# Core
+Flask
+werkzeug
+numpy
+pandas
+
+# ML Frameworks
+scikit-learn
+# torch          # uncomment for PyTorch .pt/.pth models
+# torchvision
+# tensorflow     # uncomment for TensorFlow .h5 models
+# onnxruntime    # uncomment for ONNX .onnx models
+
+# System profiling
+psutil
+
+# Utilities
+python-dateutil
+pytz

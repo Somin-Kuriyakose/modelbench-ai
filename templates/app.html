@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benchmark — ModelBench AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────── -->
+<nav class="nav scrolled" id="nav">
+  <div class="nav-logo">    <div class="nav-logo-text">Model<em>Bench</em></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app" class="active">Benchmark</a></li>
+  </ul>
+  <a href="/" class="btn-sm">← Home</a>
+</nav>
+
+<div class="app-shell">
+  <!-- ── App Topbar ──────────────────────────────────── -->
+  <div class="app-topbar">
+    <div class="app-topbar-left">
+      <span class="app-title">ModelBench App</span>
+      <div class="status-pill">
+        <span class="status-pill-dot"></span>
+        System Ready
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span class="status-pill" id="versionChip" style="background:var(--amber-dim);border-color:rgba(245,166,35,0.2);color:var(--amber);">ML Benchmarking</span>
+    </div>
+  </div>
+
+  <!-- ── Main ───────────────────────────────────────── -->
+  <div class="app-main">
+
+    <!-- Alerts -->
+    <div id="alertContainer" style="margin-bottom:16px;"></div>
+
+    <!-- Tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="benchmark">Benchmark</button>
+      <button class="tab-btn" data-tab="sweep">Batch Sweep</button>
+      <button class="tab-btn" data-tab="history">History</button>
+      <button class="tab-btn" data-tab="compare">Compare</button>
+      <button class="tab-btn" data-tab="system">System</button>
+    </div>
+
+    <!-- ═══ BENCHMARK TAB ══════════════════════════════ -->
+    <div class="tab-panel active" id="tab-benchmark">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Upload &amp; Configure</div>
+          <div class="toggle-group">
+            <label class="toggle">
+              <input type="checkbox" id="asyncMode">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Async Mode</span>
+          </div>
+        </div>
+
+        <!-- Drop zones -->
+        <div class="upload-grid">
+          <div class="drop-zone" id="modelDropZone">
+            <input type="file" id="modelFile" accept=".pkl,.pt,.pth,.h5,.onnx">
+            <div class="drop-zone-inner">
+              <span class="drop-zone-icon">⬡</span>
+              <div class="drop-zone-label">Model File</div>
+              <div class="drop-zone-hint">.pkl · .pt · .pth · .h5 · .onnx</div>
+              <div class="drop-zone-filename" id="modelFileName"></div>
+            </div>
+          </div>
+          <div class="drop-zone" id="dataDropZone">
+            <input type="file" id="dataFile" accept=".csv,.npy,.npz">
+            <div class="drop-zone-inner">
+              <span class="drop-zone-icon">◈</span>
+              <div class="drop-zone-label">Test Data</div>
+              <div class="drop-zone-hint">.csv · .npy · .npz</div>
+              <div class="drop-zone-filename" id="dataFileName"></div>
+            </div>
+          </div>
+          <div class="drop-zone" id="labelsDropZone">
+            <input type="file" id="labelsFile" accept=".csv,.npy">
+            <div class="drop-zone-inner">
+              <span class="drop-zone-icon">◎</span>
+              <div class="drop-zone-label">Labels</div>
+              <div class="drop-zone-hint">.csv · .npy</div>
+              <div class="drop-zone-optional">Optional — enables accuracy metrics</div>
+              <div class="drop-zone-filename" id="labelsFileName"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pickle warning -->
+        <div class="pickle-warning" id="pickleWarning">
+          <span class="pickle-warning-icon">⚠️</span>
+          <div class="pickle-warning-text">
+            <strong>Security Notice:</strong> Pickle (.pkl) files can execute arbitrary code when loaded.
+            Only benchmark models from trusted, verified sources.
+          </div>
+        </div>
+
+        <!-- Params -->
+        <div class="params-grid">
+          <div class="field">
+            <label>Batch Size</label>
+            <input type="number" id="batchSize" value="1" min="1" max="1024">
+          </div>
+          <div class="field">
+            <label>Iterations</label>
+            <input type="number" id="numIterations" value="100" min="1" max="10000">
+          </div>
+          <div class="field">
+            <label>Warmup Runs</label>
+            <input type="number" id="warmupRuns" value="10" min="0" max="100">
+          </div>
+        </div>
+
+        <button class="btn-run" id="runBtn" onclick="runBenchmark()">▶  Run Benchmark</button>
+
+        <div class="loading-bar" id="loadingBar">
+          <div class="loading-track">
+            <div class="loading-fill" id="loadingFill"></div>
+          </div>
+          <div class="loading-meta">
+            <span id="loadingMsg">Initialising…</span>
+            <span id="loadingPct"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="resultsSection">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Performance Results</div>
+            <div class="card-actions">
+              <button class="btn-sm" onclick="exportCurrent()">↓ Export CSV</button>
+              <button class="btn-sm active" onclick="addCurrentToCompare()">+ Add to Compare</button>
+            </div>
+          </div>
+
+          <div class="metrics-grid" id="metricsGrid"></div>
+          <div id="memCpuSection"></div>
+
+          <div class="charts-row-3">
+            <div class="chart-box">
+              <div class="chart-box-title">Latency Percentiles</div>
+              <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-box-title">Latency over Iterations</div>
+              <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-box-title">Latency Distribution</div>
+              <canvas id="histChart"></canvas>
+            </div>
+          </div>
+
+          <div id="accuracySection"></div>
+          <div id="introspectionSection"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SWEEP TAB ══════════════════════════════════ -->
+    <div class="tab-panel" id="tab-sweep">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Batch Size Sweep</div>
+          <span class="tag-chip purple">Auto-Profile</span>
+        </div>
+        <p class="body-text" style="margin-bottom:24px;font-size:.95rem;">
+          Benchmark your model across multiple batch sizes in a single run to find the optimal configuration.
+        </p>
+
+        <div class="upload-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="drop-zone" id="sweepModelDropZone">
+            <input type="file" id="sweepModelFile" accept=".pkl,.pt,.pth,.h5,.onnx">
+            <div class="drop-zone-inner">
+              <span class="drop-zone-icon">⬡</span>
+              <div class="drop-zone-label">Model File</div>
+              <div class="drop-zone-hint">.pkl · .pt · .pth · .h5 · .onnx</div>
+              <div class="drop-zone-filename" id="sweepModelFileName"></div>
+            </div>
+          </div>
+          <div class="drop-zone" id="sweepDataDropZone">
+            <input type="file" id="sweepDataFile" accept=".csv,.npy,.npz">
+            <div class="drop-zone-inner">
+              <span class="drop-zone-icon">◈</span>
+              <div class="drop-zone-label">Test Data</div>
+              <div class="drop-zone-hint">.csv · .npy · .npz</div>
+              <div class="drop-zone-filename" id="sweepDataFileName"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="params-grid" style="margin-top:16px;">
+          <div class="field" style="grid-column:span 2">
+            <label>Batch Sizes (comma-separated)</label>
+            <input type="text" id="sweepBatchSizes" value="1,8,32,128,256" placeholder="e.g. 1,8,32,128">
+          </div>
+          <div class="field">
+            <label>Iterations per Size</label>
+            <input type="number" id="sweepIterations" value="50" min="10" max="500">
+          </div>
+          <div class="field">
+            <label>Warmup Runs</label>
+            <input type="number" id="sweepWarmup" value="5" min="0" max="50">
+          </div>
+        </div>
+
+        <button class="btn-run" id="sweepBtn" onclick="runSweep()">⚡  Run Batch Sweep</button>
+
+        <div class="loading-bar" id="sweepLoadingBar">
+          <div class="loading-track">
+            <div class="loading-fill indeterminate"></div>
+          </div>
+          <div class="loading-meta"><span>Profiling batch sizes…</span></div>
+        </div>
+      </div>
+
+      <div id="sweepResults" style="display:none;">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Sweep Results</div></div>
+          <div id="sweepRecommendation"></div>
+          <div style="overflow-x:auto;">
+            <table class="sweep-table" id="sweepTable"></table>
+          </div>
+          <div class="charts-row" style="margin-top:20px;">
+            <div class="chart-box">
+              <div class="chart-box-title">Throughput vs Batch Size</div>
+              <canvas id="sweepTpChart"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-box-title">Avg Latency vs Batch Size</div>
+              <canvas id="sweepLatChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ HISTORY TAB ════════════════════════════════ -->
+    <div class="tab-panel" id="tab-history">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Latency Trend</div>
+        </div>
+        <div class="chart-box tall">
+          <div class="chart-box-title">Avg Latency over Time — All Results</div>
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Benchmark History</div>
+          <div class="card-actions">
+            <button class="btn-sm" onclick="exportAllResults()">↓ Export All CSV</button>
+            <button class="btn-sm" onclick="loadHistory()">↻ Refresh</button>
+          </div>
+        </div>
+        <div class="history-list" id="historyList">
+          <div class="empty-state">
+            <span class="empty-icon">◇</span>
+            No benchmarks yet. Run one to get started.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ COMPARE TAB ════════════════════════════════ -->
+    <div class="tab-panel" id="tab-compare">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Compare Benchmarks</div>
+        </div>
+        <p class="body-text" style="font-size:.9rem;margin-bottom:18px;">
+          Select results from History or click "Add to Compare" after a run.
+          <span style="color:var(--cyan);">Green = best</span>, <span style="color:var(--red);">red = worst</span>.
+          Percentage shows difference from best value.
+        </p>
+
+        <div class="compare-bar" id="compareBar">
+          <div class="compare-bar-text" id="compareBarText">0 selected</div>
+          <div class="compare-bar-actions">
+            <button class="btn-sm active" onclick="runCompare()">Compare Now</button>
+            <button class="btn-sm danger" onclick="clearCompare()">Clear</button>
+          </div>
+        </div>
+
+        <div id="compareResults"></div>
+      </div>
+    </div>
+
+    <!-- ═══ SYSTEM TAB ══════════════════════════════════ -->
+    <div class="tab-panel" id="tab-system">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">System Information</div>
+          <button class="btn-sm" onclick="loadSystemInfo()">↻ Refresh</button>
+        </div>
+        <div id="systemInfo">
+          <div class="empty-state">
+            <span class="empty-icon">⚙</span>
+            Loading system information…
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app-main -->
+</div><!-- /app-shell -->
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

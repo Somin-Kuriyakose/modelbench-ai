@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — ModelBench AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">    <div class="nav-logo-text">Model<em>Bench</em></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about" class="active">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app">Benchmark</a></li>
+  </ul>
+  <a href="/app" class="nav-cta">Launch App →</a>
+</nav>
+
+<!-- ── About Hero ───────────────────────────────────────── -->
+<section class="about-hero">
+  <div class="about-hero-inner">
+    <div class="about-hero-tag">About the Project</div>
+    <h1 class="about-hero-title">
+      Built for engineers<br>
+      <span class="accent-line">who care about performance</span>
+    </h1>
+    <p class="about-hero-text">
+      ModelBench AI is a self-hosted benchmarking platform that gives machine
+      learning practitioners deep, honest insight into how their models behave
+      under real inference conditions — latency, memory, CPU, and accuracy.
+    </p>
+  </div>
+</section>
+
+<!-- ── Mission ──────────────────────────────────────────── -->
+<section class="mission-section">
+  <div class="mission-inner">
+    <div class="mission-left about-reveal">
+      <blockquote class="mission-quote">
+        "You can't optimize what you can't measure — and most ML teams
+        are flying blind on inference performance."
+        <cite>— Core Design Philosophy</cite>
+      </blockquote>
+    </div>
+    <div class="mission-right">
+      <p class="mission-desc about-reveal">
+        ModelBench AI was built to solve a real problem: shipping models to
+        production without a clear picture of their latency tail, memory
+        footprint, or how batch size would affect throughput. Existing tools
+        were either too cloud-centric, too opaque, or locked to a single framework.
+      </p>
+      <p class="mission-desc about-reveal about-reveal-delay-1">
+        ModelBench is clean, local, and framework-agnostic. It produces
+        reproducible, detailed results you can actually act on — no telemetry,
+        no subscriptions, no data leaving your environment.
+      </p>
+      <p class="mission-desc about-reveal about-reveal-delay-2">
+        The platform supports async job execution, real-time memory profiling,
+        CPU utilization tracking, accuracy metric scoring with label upload,
+        automatic model introspection, and batch-size sweep — all from a
+        single drag-and-drop interface.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── What It Does ──────────────────────────────────────── -->
+<section class="values-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-eyebrow about-reveal">Capabilities</div>
+    <h2 class="display-md about-reveal" style="max-width:600px;margin-bottom:0">
+      Every metric that matters, in one place
+    </h2>
+
+    <div class="values-grid" style="margin-top:56px;">
+      <div class="value-card about-reveal">
+        <div class="value-number">⚡</div>
+        <h3 class="value-title">Latency Profiling</h3>
+        <p class="value-desc">Captures avg, median, p50/p90/p95/p99, min, max and std deviation across hundreds of inference iterations with configurable warmup runs.</p>
+      </div>
+      <div class="value-card about-reveal about-reveal-delay-1">
+        <div class="value-number">🧠</div>
+        <h3 class="value-title">Memory &amp; CPU Tracking</h3>
+        <p class="value-desc">Tracks peak heap allocation via tracemalloc, process RAM via psutil, and CPU utilisation sampled per inference run — not just a snapshot.</p>
+      </div>
+      <div class="value-card about-reveal about-reveal-delay-2">
+        <div class="value-number">🎯</div>
+        <h3 class="value-title">Accuracy Metrics</h3>
+        <p class="value-desc">Upload ground-truth labels to automatically compute accuracy and F1 for classifiers, or RMSE, MAE and R² for regression models.</p>
+      </div>
+      <div class="value-card about-reveal">
+        <div class="value-number">🔬</div>
+        <h3 class="value-title">Model Introspection</h3>
+        <p class="value-desc">Surfaces class name, parameter counts, n_features, n_classes, feature importances, and model size without any manual inspection required.</p>
+      </div>
+      <div class="value-card about-reveal about-reveal-delay-1">
+        <div class="value-number">📊</div>
+        <h3 class="value-title">Batch Size Sweep</h3>
+        <p class="value-desc">Automatically profiles your model across multiple batch sizes in one shot and identifies the optimal configuration for latency vs throughput.</p>
+      </div>
+      <div class="value-card about-reveal about-reveal-delay-2">
+        <div class="value-number">🔄</div>
+        <h3 class="value-title">Compare &amp; Export</h3>
+        <p class="value-desc">Tag and annotate results, compare benchmarks side-by-side with best/worst highlighting, and export any result or all results as CSV.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Principles ─────────────────────────────────────────── -->
+<section class="timeline-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-eyebrow about-reveal">Our Principles</div>
+    <h2 class="display-md about-reveal" style="max-width:560px;margin-bottom:0">
+      What ModelBench stands for
+    </h2>
+  </div>
+
+  <div style="max-width:780px;margin:56px auto 0;display:grid;gap:0;">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Privacy First</div>
+      <p class="timeline-desc">
+        Your model weights and data never leave your machine. ModelBench runs
+        entirely locally — no outbound telemetry, no cloud APIs, no user tracking
+        of any kind.
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Framework Agnostic</div>
+      <p class="timeline-desc">
+        Works with sklearn, PyTorch, TensorFlow, and ONNX Runtime through a single
+        unified interface. Switching ML frameworks should never mean switching tools.
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Honest Metrics</div>
+      <p class="timeline-desc">
+        We report p99 tail latencies, not just averages. Peak memory, not current usage.
+        The numbers that matter in production are always shown — never hidden.
+      </p>
+    </div>
+    <div class="timeline-item" style="padding-bottom:0;">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Zero Lock-in</div>
+      <p class="timeline-desc">
+        Export everything to CSV. Results are plain JSON on disk. The platform is
+        fully open. You own your workflow and your data, completely and always.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tech Stack ─────────────────────────────────────────── -->
+<section class="stack-section">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <div class="section-eyebrow about-reveal" style="justify-content:center;margin-bottom:16px;">Built With</div>
+    <h2 class="display-md about-reveal">The technology stack</h2>
+  </div>
+  <div class="stack-grid" style="max-width:1200px;margin:56px auto 0;">
+    <div class="stack-item about-reveal"><span class="stack-icon">🐍</span><div class="stack-name">Python</div></div>
+    <div class="stack-item about-reveal about-reveal-delay-1"><span class="stack-icon">🌐</span><div class="stack-name">Flask</div></div>
+    <div class="stack-item about-reveal about-reveal-delay-2"><span class="stack-icon">🔢</span><div class="stack-name">NumPy</div></div>
+    <div class="stack-item about-reveal"><span class="stack-icon">🐼</span><div class="stack-name">Pandas</div></div>
+    <div class="stack-item about-reveal about-reveal-delay-1"><span class="stack-icon">📊</span><div class="stack-name">Chart.js</div></div>
+    <div class="stack-item about-reveal about-reveal-delay-2"><span class="stack-icon">⚙️</span><div class="stack-name">psutil</div></div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────── -->
+<section class="contact-section">
+  <div style="position:relative;z-index:1;max-width:680px;margin:0 auto;">
+    <div class="section-eyebrow about-reveal" style="justify-content:center;margin-bottom:20px;">Get Started</div>
+    <h2 class="display-md about-reveal" style="margin-bottom:24px;text-align:center;">
+      Ready to profile your model?
+    </h2>
+    <p class="body-text about-reveal about-reveal-delay-1" style="text-align:center;margin-bottom:48px;max-width:520px;margin-left:auto;margin-right:auto;">
+      Clone the repository, install the requirements, and run
+      <code style="font-family:var(--font-mono);font-size:.88em;background:var(--bg-raised);padding:2px 8px;border-radius:4px;color:var(--cyan);">python app.py</code>
+      — that's it.
+    </p>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;" class="about-reveal about-reveal-delay-2">
+      <a href="/app" class="btn-primary" style="font-size:13px;padding:14px 32px">▶ Open Benchmark App</a>
+      <a href="/" class="btn-ghost" style="font-size:13px;padding:13px 28px">← Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-copy">© 2026 ModelBench AI · Open Source</div>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/app">App</a></li>
+  </ul>
+</footer>
+
+<script src="{{ url_for('static', filename='js/about.js') }}"></script>
+</body>
+</html>
